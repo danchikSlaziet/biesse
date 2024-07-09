@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="./vendor/custom-select.css">
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="./main.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <title>BIESSE</title>
+</head>
+<body>
+  <div class="loading-page">
+    <div class="loading-page__text-block">
+      <img class="loading-page__logo" src="./assets/images/loading-page-logo.svg" alt="">
+      <p class="loading-page__text">
+        Создание<br>сервисной заявки
+      </p>
+    </div>
+    <div class="loading-wrapper">
+      <div class="loading-wrapper__progress"></div>
+    </div>
+  </div>
+  <div class="main main_disable">
+    <div class="header">
+      <img class="header__logo" src="./assets/images/main-page-logo.svg" alt="">
+      <button class="header__button" type="button">Создать заявку</button>
+    </div>
+    <div class="main__request request">
+      <div class="request__content">
+        <p class="request__title">Мои заявки</p>
+        <div class="request__items">
+          <div class="request__item">
+            <p class="request__item-number">№ 11-247</p>
+            <p class="request__item-date">
+              <span class="gray-color">Дата:</span> 10.10.2010
+            </p>
+            <p class="request__item-name">
+              <span class="gray-color">Название компании:</span> ООО Рога и Копыта
+            </p>
+            <p class="request__item-type">
+              <span class="gray-color">Тип заявки:</span> Заказ запасных частей по гарантии
+            </p>
+            <p class="request__item-status">
+              <span class="gray-color">Статус:</span> Отправлена
+            </p>
+            <button class="request__item-button" type="button">Редактировать</button>
+          </div>
+          <div class="request__item">
+            <p class="request__item-number">№ 11-247</p>
+            <p class="request__item-date">
+              <span class="gray-color">Дата:</span> 10.10.2010
+            </p>
+            <p class="request__item-name">
+              <span class="gray-color">Название компании:</span> ООО Рога и Копыта
+            </p>
+            <p class="request__item-status">
+              <span class="gray-color">Статус:</span> Отправлена
+            </p>
+            <button class="request__item-button" type="button">Редактировать</button>
+          </div>
+          <div class="request__item">
+            <p class="request__item-number">№ 11-247</p>
+            <p class="request__item-date">
+              <span class="gray-color">Дата:</span> 10.10.2010
+            </p>
+            <p class="request__item-name">
+              <span class="gray-color">Название компании:</span> ООО Рога и Копыта
+            </p>
+            <p class="request__item-status">
+              <span class="gray-color">Статус:</span> Отправлена
+            </p>
+            <button class="request__item-button" type="button">Редактировать</button>
+          </div>
+        </div>
+      </div>
+      <div class="request__no-content">
+        <p class="request__no-content-title">
+          У&nbsp;вас нет активных заявок
+        </p>
+        <p class="request__no-content-subtitle">
+          Заявка отобразится после её&nbsp;создания
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="new-request new-request_disable">
+    <div class="new-request__content">
+      <img class="new-request__logo" src="./assets/images/request-logo.svg" alt="">
+      <p class="new-request__title">
+        Заявка в&nbsp;сервисную<br>службу
+      </p>
+      <div class="new-request__warning">
+        Внимание! Поля данной формы обязательны для заполнения. Некорректно заполненные заявки не&nbsp;могут быть обработаны.
+      </div>
+      <div class="new-request__input-block new-request__input-block_name">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          Название компании
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__input-block new-request__input-block_adress">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          Адрес
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__input-block new-request__input-block_fio">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          ФИО контактного лица
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__select-block new-request__select-block_model">
+        <p class="new-request__input-label">
+          Модель оборудования:
+        </p>
+        <select class="new-request__select" name="model-select" id="modelSelect">
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+        </select>
+      </div>
+      <div class="new-request__input-block new-request__input-block_inn">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          ИНН:
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__input-block new-request__input-block_number">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          Контактный телефон
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__input-block new-request__input-block_serial-num">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          Серийный номер
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__select-block new-request__select-block_state">
+        <p class="new-request__input-label">
+          Состояние оборудования:
+        </p>
+        <select class="new-request__select" name="state-select" id="stateSelect">
+          <option value="1">Рабочее</option>
+          <option value="2">Ограниченное</option>
+          <option value="3">Не рабочее</option>
+        </select>
+      </div>
+      <div class="new-request__select-block new-request__select-block_target">
+        <p class="new-request__input-label">
+          Цель обращения:
+        </p>
+        <select class="new-request__select" name="target-select" id="targetSelect">
+          <option value="1">Заказ запасных частей</option>
+          <option value="2">Заказ запасных частей по гарантии</option>
+          <option value="3">Выезд техника</option>
+          <option value="4">Удалённая поддержка</option>
+        </select>
+      </div>
+      <div class="new-request__input-block new-request__input-block_comments">
+        <p class="new-request__input-error">*Заполните поле</p>
+        <p class="new-request__input-label">
+          Комментарии:
+        </p>
+        <textarea class="new-request__input" placeholder="Начните вводить..." type="text"></textarea>
+      </div>
+      <div class="new-request__input-block new-request__input-block_request-num">
+        <p class="new-request__input-error">*Не обязательно</p>
+        <p class="new-request__input-label">
+          Номер запроса:
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__input-block new-request__input-block_order-num">
+        <p class="new-request__input-error">*Не обязательно</p>
+        <p class="new-request__input-label">
+          Номер заказа:
+        </p>
+        <input class="new-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="new-request__photo-block">
+        <div class="new-request__photo-item">
+          <p class="new-request__photo-label">
+            1. Особое поле с добавлением
+          </p>
+          <div style="display: flex; gap: 4px; justify-content: space-between; margin-bottom: 5px;">
+            <div class="new-request__first-left-row">
+              <div class="new-request__first-close-input">
+                <p class="new-request__first-close-input-text"></p>
+                <img class="new-request__first-close-input-img" src="./assets/images/close-file.svg" alt="">
+              </div>
+              <input class="new-request__first-left-row-input" placeholder="№ каталога (лат.)" type="text">
+              <div class="new-request__first-left-row-file-wrapper">
+                <input class="new-request__first-left-row-file" type="file">
+              </div>
+            </div>
+            <div class="new-request__first-right-row">
+              <button class="new-request__first-right-row-decrease" type="button"></button>
+              <p class="new-request__first-right-row-count">1</p>
+              <button class="new-request__first-right-row-increase" type="button"></button>
+            </div>
+          </div>
+          <div class="new-request__second-row">
+            <input class="new-request__second-row-input" placeholder="Наименование" type="text">
+          </div>
+        </div>
+        <template id="photoItemTemplate">
+          <div class="new-request__photo-item">
+            <p class="new-request__photo-label">
+              <span class="new-request-photo-label-count">1</span>. Особое поле с добавлением
+            </p>
+            <div style="display: flex; gap: 4px; justify-content: space-between; margin-bottom: 5px;">
+              <div class="new-request__first-left-row">
+                <div class="new-request__first-close-input">
+                  <p class="new-request__first-close-input-text"></p>
+                  <img class="new-request__first-close-input-img" src="./assets/images/close-file.svg" alt="">
+                </div>
+                <input class="new-request__first-left-row-input" placeholder="№ каталога (лат.)" type="text">
+                <div class="new-request__first-left-row-file-wrapper">
+                  <input class="new-request__first-left-row-file" type="file">
+                </div>
+              </div>
+              <div class="new-request__first-right-row">
+                <button class="new-request__first-right-row-decrease" type="button"></button>
+                <p class="new-request__first-right-row-count">1</p>
+                <button class="new-request__first-right-row-increase" type="button"></button>
+              </div>
+            </div>
+            <div class="new-request__second-row">
+              <input class="new-request__second-row-input" placeholder="Наименование" type="text">
+            </div>
+          </div>
+        </template>
+      </div>
+      <button class="new-request__add-photo-block" type="button">
+        <img class="new-request__add-photo-block-img" src="./assets/images/add-photo-block-img.svg" alt="">
+        <p class="new-request__add-photo-block-text">Добавить запасную часть</p>
+      </button>
+      <button class="new-request__send-button" type="button">создать заявку</button>
+    </div>
+  </div>
+  <div class="old-request old-request_disable">
+    <div class="old-request__content">
+      <img class="old-request__logo" src="./assets/images/request-logo.svg" alt="">
+      <p class="old-request__title">
+        Заявка в&nbsp;сервисную<br>службу
+      </p>
+      <div class="old-request__warning">
+        Внимание! Поля данной формы обязательны для заполнения. Некорректно заполненные заявки не&nbsp;могут быть обработаны.
+      </div>
+      <div class="old-request__input-block old-request__input-block_name">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          Название компании
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__input-block old-request__input-block_adress">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          Адрес
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__input-block old-request__input-block_fio">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          ФИО контактного лица
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__select-block old-request__select-block_model">
+        <p class="old-request__input-label">
+          Модель оборудования:
+        </p>
+        <select class="old-request__select" name="model-select" id="modelSelectOld">
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+          <option value="1">AC 32</option>
+          <option value="2">Advantage</option>
+          <option value="3">Advantage Omron</option>
+          <option value="4">Akron 3000</option>
+        </select>
+      </div>
+      <div class="old-request__input-block old-request__input-block_inn">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          ИНН:
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__input-block old-request__input-block_number">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          Контактный телефон
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__input-block old-request__input-block_serial-num">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          Серийный номер
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__select-block old-request__select-block_state">
+        <p class="old-request__input-label">
+          Состояние оборудования:
+        </p>
+        <select class="old-request__select" name="state-select" id="stateSelectOld">
+          <option value="1">Рабочее</option>
+          <option value="2">Ограниченное</option>
+          <option value="3">Не рабочее</option>
+        </select>
+      </div>
+      <div class="old-request__input-block old-request__input-block_comments">
+        <p class="old-request__input-error">*Заполните поле</p>
+        <p class="old-request__input-label">
+          Комментарии:
+        </p>
+        <textarea class="old-request__input" placeholder="Начните вводить..." type="text"></textarea>
+      </div>
+      <div class="old-request__input-block old-request__input-block_request-num">
+        <p class="old-request__input-error">*Не обязательно</p>
+        <p class="old-request__input-label">
+          Номер запроса:
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <div class="old-request__input-block old-request__input-block_order-num">
+        <p class="old-request__input-error">*Не обязательно</p>
+        <p class="old-request__input-label">
+          Номер заказа:
+        </p>
+        <input class="old-request__input" placeholder="Начните вводить..." type="text">
+      </div>
+      <button class="old-request__send-button" type="button">Применить изменения</button>
+    </div>
+  </div>
+  <div class="final-page">
+    <img class="final-page__img" src="./assets/images/final-page-img.svg" alt="">
+    <p class="final-page__title">
+      Заявка создана
+    </p>
+    <p class="final-page__subtitle">
+      После ее успешной отправки<br>
+      вы получите уведомление
+    </p>
+    <div class="final-page__buttons">
+      <button class="final-page__button final-page__button_request" type="button">Мои заявки</button>
+      <button class="final-page__button final-page__button_exit" type="button">Выход</button>
+    </div>
+  </div>
+  <div class="final-page-old">
+    <img class="final-page-old__img" src="./assets/images/final-page-img.svg" alt="">
+    <p class="final-page-old__title">
+      Заявка отредактрована
+    </p>
+    <div class="final-page-old__buttons">
+      <button class="final-page-old__button final-page-old__button_request" type="button">Мои заявки</button>
+      <button class="final-page-old__button final-page-old__button_exit" type="button">Выход</button>
+    </div>
+  </div>
+  <script src="./vendor/custom-select.min.js" type="text/javascript"></script>
+  <script src="./vendor/mobile-detect.min.js"></script>
+  <script src="./main.js" type="module"></script>
+</body>
+</html>
