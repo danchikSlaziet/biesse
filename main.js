@@ -132,9 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let user_data_str = parseQuery(query).user;
   let user_data = JSON.parse(user_data_str);
   app.expand();
+  app.disableVerticalSwipes();
   app.ready();
   // отмена закрытия по свайпу
-  app.disableVerticalSwipes();
+  setTimeout(() => {
+    console.log(app.isVerticalSwipesEnabled)
+  }, 1000)
   userChatId = user_data["id"];
 });
 
