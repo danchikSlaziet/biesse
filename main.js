@@ -107,11 +107,54 @@ const snackbarDelete = document.querySelector(".snackbar-delete");
 const editRequestPage = document.querySelector(".edit-request");
 const editRequestBack = editRequestPage.querySelector(".edit-request__back");
 
-var im = new Inputmask("+7 999 999 99 99");
-im.mask(document.querySelector('.new-request__input-block_number .new-request__input'))
+function scrollToTop(element) {
+  element.scrollTop = 0;
+}
 
-var im2 = new Inputmask("+7 999 999 99 99");
-im2.mask(document.querySelector('.edit-request__input-block_number .edit-request__input'))
+// Получаем высоту элемента
+const elementHeight = document.querySelector(".main").offsetHeight;
+
+// Получаем высоту окна браузера
+const windowHeight = window.innerHeight;
+
+// Вычисляем, насколько необходимо прокрутить элемент
+const scrollToPosition = elementHeight - windowHeight;
+console.log(scrollToPosition)
+
+// Прокручиваем элемент до нужной позиции
+document.querySelector(".main").scrollTop = scrollToPosition;
+
+// Создаем экземпляр Inputmask и применяем маску
+const inputMask = new Inputmask({
+  mask: '*{1,100}',
+  greedy: false,
+  definitions: {
+    '*': {
+      validator: '[0-9+\\-\\(\\)]',
+      cardinality: 1
+    }
+  },
+  showMaskOnFocus: false,
+  showMaskOnHover: false,
+  clearIncomplete: true
+});
+inputMask.mask(document.querySelector('.new-request__input-block_number .new-request__input'))
+
+// Создаем экземпляр Inputmask и применяем маску
+const inputMask2 = new Inputmask({
+  mask: '*{1,100}',
+  greedy: false,
+  definitions: {
+    '*': {
+      validator: '[0-9+\\-\\(\\)]',
+      cardinality: 1
+    }
+  },
+  showMaskOnFocus: false,
+  showMaskOnHover: false,
+});
+inputMask2.mask(document.querySelector('.edit-request__input-block_number .edit-request__input'))
+
 const requestsObject = {
   '0': {
     "request_id": "4",
@@ -249,6 +292,7 @@ requestsArray.forEach((elem) => {
   requestElement.querySelector('.request__item-button_view').addEventListener("click", (e) => {
     fileCount = 0;
     oldRequestPage.classList.remove('old-request_disable');
+    scrollToTop(oldRequestPage);
     oldRequestPage.dataset.reqId = elem.request_id;
     main.classList.add("main_disable");
     // передача инфы в old-request-page
@@ -280,7 +324,7 @@ requestsArray.forEach((elem) => {
     document.querySelector('.old-request__copy-button').addEventListener('click', () => {
       oldRequestPage.classList.add('old-request_disable');
       newRequestPage.classList.remove('new-request_disable');
-
+      scrollToTop(newRequestPage)
       newRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
       // копирование данных
       newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value = elem.fio;
@@ -291,7 +335,7 @@ requestsArray.forEach((elem) => {
       newRequestPage.querySelector('.new-request__input-block_model .new-request__input').value = elem.model;
       newRequestPage.querySelector('.new-request__input-block_serial-num .new-request__input').value = elem.serial_num;
       newRequestPage.querySelector('.new-request__input-block_comments .new-request__input').value = elem.comments.description;
-      if ((newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.includes('_') || newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value.trim() == ''))
+      if ((newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value.trim() == ''))
         {
           sendFormButton.classList.remove('new-request__send-button_active');
         }
@@ -341,6 +385,7 @@ document.querySelector('.old-request__edit-button').addEventListener('click', (e
   fileCountEdit = 0;
   oldRequestPage.classList.add('old-request_disable');
   document.querySelector('.edit-request').classList.remove('edit-request_disable');
+  scrollToTop(editRequestPage);
 
   const reqId = evt.target.closest('.old-request').dataset.reqId;
   const targetRequest = requestsArray.find((item) => item.request_id == reqId);
@@ -365,7 +410,7 @@ document.querySelector('.old-request__edit-button').addEventListener('click', (e
         cstSel.value = 3;
       }
 
-  if ((editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.includes('_') || editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value.trim() == ''))
+  if ((editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value.trim() == ''))
     {
       document.querySelector('.edit-request__send-button').classList.remove('edit-request__send-button_active');
     }
@@ -376,6 +421,7 @@ document.querySelector('.old-request__edit-button').addEventListener('click', (e
 editRequestPage.querySelector('.edit-request__reject-button').addEventListener('click', () => {
   editRequestPage.classList.add('edit-request_disable');
   main.classList.remove('main_disable');
+  scrollToTop(main);
 });
 editRequestPage.querySelector('.edit-request__send-button').addEventListener('click', () => {
   editRequestPage.classList.add('edit-request_disable');
@@ -398,6 +444,7 @@ document.querySelector('.snackbar-delete__button_delete').addEventListener('clic
   snackbarDelete.classList.remove('snackbar-delete_active');
   oldRequestPage.classList.add('old-request_disable');
   main.classList.remove('main_disable');
+  scrollToTop(main);
 });
 snackbarDelete.addEventListener("click", (evt) => {
   if (evt.currentTarget === evt.target) {
@@ -411,9 +458,6 @@ function clearSnackbarRate() {
   snackbarStars.forEach((star) => {
     star.classList.remove('snackbar-rate__star_active');
   });
-  setTimeout(() => {
-    snackbarRateTextarea.style.display = 'none';
-  }, 200)
   snackbarRateButton.classList.remove('snackbar-rate__button_active');
   snackbarRateTextarea.querySelector('.snackbar-rate__input').value = null;
 }
@@ -436,17 +480,12 @@ snackbarStars.forEach((star, index) => {
     });
     // Выводим рейтинг в консоль
     console.log(`Рейтинг: ${index + 1} из 5`);
-    if (index + 1 <= 2)  {
-      snackbarRateTextarea.style.display = 'block';
-    }
-    else {
-      snackbarRateTextarea.style.display = 'none';
-    }
   })
 });
 snackbarRateButton.addEventListener('click', () => {
   snackbarRate.classList.add('snackbar-rate_disable');
   main.classList.remove('main_disable');
+  scrollToTop(main);
   snackbarSuccess.classList.add('snackbar-success_active');
   setTimeout(() => {
     snackbarSuccess.classList.remove('snackbar-success_active');
@@ -457,6 +496,7 @@ snackbarRateButton.addEventListener('click', () => {
 newRequestBack.addEventListener('click', () => {
   newRequestPage.classList.add('new-request_disable');
   main.classList.remove('main_disable');
+  scrollToTop(main);
 });
 
 const addMediaBtn = document.querySelector('.new-request-media__add-file');
@@ -538,22 +578,20 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     loadingPage.classList.add('loading-page_disable');
     main.classList.remove('main_disable');
+    scrollToTop(main);
   }, 2500)
-  // api.getRequests()
-  // .then(data => console.log(data))
-  // .catch(err => console.log(err))
-  // let app = window.Telegram.WebApp;
-  // let query = app.initData;
-  // let user_data_str = parseQuery(query).user;
-  // let user_data = JSON.parse(user_data_str);
-  // app.expand();
-  // app.disableVerticalSwipes();
-  // app.ready();
-  // // отмена закрытия по свайпу
-  // setTimeout(() => {
-  //   console.log(app.isVerticalSwipesEnabled)
-  // }, 1000)
-  // userChatId = user_data["id"];
+  let app = window.Telegram.WebApp;
+  let query = app.initData;
+  let user_data_str = parseQuery(query).user;
+  let user_data = JSON.parse(user_data_str);
+  app.expand();
+  app.disableVerticalSwipes();
+  app.ready();
+  // отмена закрытия по свайпу
+  setTimeout(() => {
+    console.log(app.isVerticalSwipesEnabled)
+  }, 1000)
+  userChatId = user_data["id"];
 });
 
 function vibro() {
@@ -576,6 +614,7 @@ function vibro() {
 headerButton.addEventListener('click', () => {
   main.classList.add("main_disable");
   newRequestPage.classList.remove("new-request_disable");
+  scrollToTop(newRequestPage);
   newRequestPage.querySelectorAll('input').forEach((input) => {
     input.value = null;
   });
@@ -593,10 +632,10 @@ newRequestPage.querySelectorAll('input').forEach((input) => {
     if (newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() != '') {
       newRequestPage.querySelector('.new-request__input-block_fio .new-request__input-error').classList.remove('new-request__input-error_active')
     }
-    if (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.includes('_') || newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') {
+    if (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') {
       newRequestPage.querySelector('.new-request__input-block_number .new-request__input-error').classList.add('new-request__input-error_active')
     }
-    if (!newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.includes('_') && newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() != '') {
+    if (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() != '') {
       newRequestPage.querySelector('.new-request__input-block_number .new-request__input-error').classList.remove('new-request__input-error_active')
     }
     if (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') {
@@ -650,20 +689,24 @@ document.getElementById('example').addEventListener("click", (evt) => {
 });
 document.querySelector('.snackbar-rate__close').addEventListener("click", (evt) => {
   main.classList.remove("main_disable");
+  scrollToTop(main);
   snackbarRate.classList.add('snackbar-rate_disable');
 });
 finalPageRequestButton.addEventListener("click", () => {
   finalPage.classList.remove("final-page_active");
   main.classList.remove('main_disable');
+  scrollToTop(main);
 });
 finalPageExitButton.addEventListener("click", () => {
   finalPage.classList.remove("final-page_active");
   main.classList.remove('main_disable');
+  scrollToTop(main);
 });
 
 
 oldRequestBack.addEventListener('click', () => {
   main.classList.remove('main_disable');
+  scrollToTop(main);
   oldRequestPage.classList.add("old-request_disable");
 });
 
@@ -671,6 +714,7 @@ oldRequestBack.addEventListener('click', () => {
 
 editRequestBack.addEventListener('click', () => {
   main.classList.remove('main_disable');
+  scrollToTop(main);
   editRequestPage.classList.add("edit-request_disable");
 });
 const addMediaBtnEdit = document.querySelector('.edit-request-media__add-file');
@@ -734,10 +778,10 @@ editRequestPage.querySelectorAll('input').forEach((input) => {
     if (editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value.trim() != '') {
       editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input-error').classList.remove('edit-request__input-error_active')
     }
-    if (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.includes('_') || editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') {
+    if ( editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') {
       editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input-error').classList.add('edit-request__input-error_active')
     }
-    if (!editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.includes('_') && editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() != '') {
+    if (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() != '') {
       editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input-error').classList.remove('edit-request__input-error_active')
     }
     if (editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value.trim() == '') {
@@ -752,7 +796,7 @@ editRequestPage.querySelectorAll('input').forEach((input) => {
     if (editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value.trim() != '') {
       editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input-error').classList.remove('edit-request__input-error_active')
     }
-    if ((editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.includes('_') || editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value.trim() == ''))
+    if ((editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value.trim() == '') || (editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value.trim() == ''))
     {
       document.querySelector('.edit-request__send-button').classList.remove('edit-request__send-button_active');
     }

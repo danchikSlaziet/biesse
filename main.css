@@ -38,7 +38,9 @@ img{
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
-
+button:hover {
+  cursor: pointer;
+}
 a,a:hover{
   text-decoration: none;
 }
@@ -359,6 +361,9 @@ a,a:hover{
   top: 14px;
   left: 11px;
 }
+.new-request__back:hover {
+  cursor: pointer;
+}
 .new-request__logo {
   display: block;
   margin: 0 auto;
@@ -618,6 +623,9 @@ a,a:hover{
   right: 13px;
   transform: translate(0, -50%);
 }
+.file-close:hover {
+  cursor: pointer;
+}
 .new-request__first-left-row-file {
   opacity: 0;
   position: absolute;
@@ -836,6 +844,9 @@ a,a:hover{
   position: absolute;
   top: 14px;
   left: 11px;
+}
+.edit-request__back:hover {
+  cursor: pointer;
 }
 .edit-request__logo {
   display: block;
@@ -1296,6 +1307,9 @@ a,a:hover{
   top: 14px;
   left: 11px;
 }
+.old-request__back:hover {
+  cursor: pointer;
+}
 .old-request__logo {
   display: block;
   margin: 0 auto;
@@ -1754,6 +1768,9 @@ a,a:hover{
   top: 7px;
   right: 7px;
 }
+.snackbar-comment__close:hover {
+  cursor: pointer;
+}
 .snackbar-comment__title {
   color: #000;
   font-size: 22px;
@@ -1852,7 +1869,9 @@ a,a:hover{
   top: 7px;
   right: 7px;
 }
-
+.snackbar-delete__close:hover {
+  cursor: pointer;
+}
 .snackbar-delete__text {
   color: #000;
   margin-bottom: 7px;
@@ -1953,6 +1972,9 @@ a,a:hover{
   top: 14px;
   left: 11px;
 }
+.snackbar-rate__close:hover {
+  cursor: pointer;
+}
 .snackbar-rate__logo {
   display: block;
   margin: 0 auto;
@@ -1985,12 +2007,15 @@ a,a:hover{
   opacity: .2;
   transition: opacity .2s ease;
 }
+.snackbar-rate__star:hover {
+  cursor: pointer;
+}
 .snackbar-rate__star_active {
   opacity: 1;
 }
 .snackbar-rate__input-wrapper {
   margin-bottom: 19px;
-  display: none;
+  display: block;
 }
 .snackbar-rate__label {
   color: rgba(0, 0, 0, .6);
