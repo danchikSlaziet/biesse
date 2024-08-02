@@ -686,6 +686,7 @@ sendFormButton.addEventListener("click", (evt) => {
 document.getElementById('example').addEventListener("click", (evt) => {
   main.classList.add("main_disable");
   snackbarRate.classList.remove('snackbar-rate_disable');
+  scrollToTop(snackbarRate)
 });
 document.querySelector('.snackbar-rate__close').addEventListener("click", (evt) => {
   main.classList.remove("main_disable");
