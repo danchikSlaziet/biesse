@@ -1739,7 +1739,7 @@ a,a:hover{
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   opacity: 0;
-  transition: visibility .24s, opacity .24s linear;
+  transition: visibility .24s, opacity .24s linear, transform .24s linear;
   z-index: 100;
 }
 .snackbar-comment_active {

@@ -1,4 +1,4 @@
-(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
+// (function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
 
 class Api {
   constructor({baseUrl}) {
@@ -111,18 +111,7 @@ function scrollToTop(element) {
   element.scrollTop = 0;
 }
 
-// Получаем высоту элемента
-const elementHeight = document.querySelector(".main").offsetHeight;
 
-// Получаем высоту окна браузера
-const windowHeight = window.innerHeight;
-
-// Вычисляем, насколько необходимо прокрутить элемент
-const scrollToPosition = elementHeight - windowHeight;
-console.log(scrollToPosition)
-
-// Прокручиваем элемент до нужной позиции
-document.querySelector(".main").scrollTop = scrollToPosition;
 
 // Создаем экземпляр Inputmask и применяем маску
 const inputMask = new Inputmask({
@@ -305,7 +294,7 @@ requestsArray.forEach((elem) => {
       document.querySelector('.snackbar-comment__number').textContent = elem.request_1c_id;
     }
     oldRequestPage.querySelector('.old-request__block_fio .old-request__value').textContent = elem.fio;
-    oldRequestPage.querySelector('.old-request__block_number .old-request__value').textContent = elem.number;
+    oldRequestPage.querySelector('.old-request__block_number .old-request__value').textContent = elem.number.trim();
     oldRequestPage.querySelector('.old-request__block_name .old-request__value').textContent = elem.name;
     oldRequestPage.querySelector('.old-request__block_city .old-request__value').textContent = elem.city;
     oldRequestPage.querySelector('.old-request__block_adress .old-request__value').textContent = elem.adress;
@@ -328,7 +317,7 @@ requestsArray.forEach((elem) => {
       newRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
       // копирование данных
       newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value = elem.fio;
-      newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value = elem.number;
+      newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value = elem.number.trim();
       newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value = elem.name;
       newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value = elem.city;
       newRequestPage.querySelector('.new-request__input-block_adress .new-request__input').value = elem.adress;
@@ -359,12 +348,12 @@ snackbarComment.querySelector('.snackbar-comment__close').addEventListener('clic
   snackbarComment.classList.remove('snackbar-comment_active');
   clearSnackbarComment();
 });
-snackbarComment.addEventListener("click", (evt) => {
-  if (evt.currentTarget === evt.target) {
-    snackbarComment.classList.remove('snackbar-comment_active');
-    clearSnackbarComment();
-  }
-});
+// snackbarComment.addEventListener("click", (evt) => {
+//   if (evt.currentTarget === evt.target) {
+//     snackbarComment.classList.remove('snackbar-comment_active');
+//     clearSnackbarComment();
+//   }
+// });
 snackbarComment.querySelector('.snackbar-comment__input').addEventListener('input', (evt) => {
   if (evt.target.value.trim() != '') {
     snackbarComment.querySelector('.snackbar-comment__button').classList.add('snackbar-comment__button_active')
@@ -373,6 +362,31 @@ snackbarComment.querySelector('.snackbar-comment__input').addEventListener('inpu
     snackbarComment.querySelector('.snackbar-comment__button').classList.remove('snackbar-comment__button_active')
   }
 });
+let detect = new MobileDetect(window.navigator.userAgent);
+snackbarComment.querySelector('.snackbar-comment__input').addEventListener('focus', () => {
+  if (detect.os() === 'iOS') {
+    snackbarComment.style.top = '-220px';
+  }
+});
+
+snackbarComment.querySelector('.snackbar-comment__input').addEventListener('blur', () => {
+  if (detect.os() === 'iOS') {
+    snackbarComment.style.top = '0';
+  }
+});
+snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('focus', () => {
+  if (detect.os() === 'iOS') {
+    snackbarRate.style.top = '-220px';
+  }
+});
+snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('blur', () => {
+  if (detect.os() === 'iOS') {
+    snackbarRate.style.top = '0px';
+  }
+});
+
+
+
 document.querySelector('.snackbar-comment__button').addEventListener("click", (evt) => {
   clearSnackbarComment();
   snackbarComment.classList.remove('snackbar-comment_active')
@@ -393,7 +407,7 @@ document.querySelector('.old-request__edit-button').addEventListener('click', (e
   editRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
       // копирование данных
   editRequestPage.querySelector('.edit-request__input-block_fio .edit-request__input').value = targetRequest.fio;
-  editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value = targetRequest.number;
+  editRequestPage.querySelector('.edit-request__input-block_number .edit-request__input').value = targetRequest.number.trim();
   editRequestPage.querySelector('.edit-request__input-block_name .edit-request__input').value = targetRequest.name;
   editRequestPage.querySelector('.edit-request__input-block_city .edit-request__input').value = targetRequest.city;
   editRequestPage.querySelector('.edit-request__input-block_adress .edit-request__input').value = targetRequest.adress;
@@ -446,11 +460,11 @@ document.querySelector('.snackbar-delete__button_delete').addEventListener('clic
   main.classList.remove('main_disable');
   scrollToTop(main);
 });
-snackbarDelete.addEventListener("click", (evt) => {
-  if (evt.currentTarget === evt.target) {
-    snackbarDelete.classList.remove('snackbar-delete_active');
-  }
-});
+// snackbarDelete.addEventListener("click", (evt) => {
+//   if (evt.currentTarget === evt.target) {
+//     snackbarDelete.classList.remove('snackbar-delete_active');
+//   }
+// });
 function clearSnackbarComment() {
   snackbarComment.querySelector('.snackbar-comment__input').value = null;
 }
@@ -466,12 +480,12 @@ snackbarRateClose.addEventListener('click', () => {
   snackbarRate.classList.remove('snackbar-rate_active');
   clearSnackbarRate();
 });
-snackbarRate.addEventListener("click", (evt) => {
-  if (evt.currentTarget === evt.target) {
-    snackbarRate.classList.remove('snackbar-rate_active');
-    clearSnackbarRate();
-  }
-});
+// snackbarRate.addEventListener("click", (evt) => {
+//   if (evt.currentTarget === evt.target) {
+//     snackbarRate.classList.remove('snackbar-rate_active');
+//     clearSnackbarRate();
+//   }
+// });
 snackbarStars.forEach((star, index) => {
   star.addEventListener("click", (e) => {
     snackbarRateButton.classList.add('snackbar-rate__button_active');
@@ -593,14 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 1000)
   userChatId = user_data["id"];
 });
-// отмена закрытия по свайпу (если скролла нет, то работает отлично, когда скролл есть - закрывается при проведении буквой Г, например слева направо и вниз)
-const overflow = 100;
-document.body.style.overflowY = 'hidden';
-document.body.style.marginTop = `${overflow}px`;
-document.body.style.height = window.innerHeight + overflow + "px";
-document.body.style.paddingBottom = `${overflow}px`;
-window.scrollTo(0, overflow);
-// отмена закрытия по свайпу
+
 function vibro() {
   let detect = new MobileDetect(window.navigator.userAgent);
   if (detect.os() === 'iOS') {
