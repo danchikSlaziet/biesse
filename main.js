@@ -584,8 +584,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let query = app.initData;
   let user_data_str = parseQuery(query).user;
   let user_data = JSON.parse(user_data_str);
-  app.expand();
   app.disableVerticalSwipes();
+  app.expand();
   app.ready();
   // отмена закрытия по свайпу
   setTimeout(() => {
@@ -593,7 +593,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 1000)
   userChatId = user_data["id"];
 });
-
+// отмена закрытия по свайпу (если скролла нет, то работает отлично, когда скролл есть - закрывается при проведении буквой Г, например слева направо и вниз)
+const overflow = 100;
+document.body.style.overflowY = 'hidden';
+document.body.style.marginTop = `${overflow}px`;
+document.body.style.height = window.innerHeight + overflow + "px";
+document.body.style.paddingBottom = `${overflow}px`;
+window.scrollTo(0, overflow);
+// отмена закрытия по свайпу
 function vibro() {
   let detect = new MobileDetect(window.navigator.userAgent);
   if (detect.os() === 'iOS') {
