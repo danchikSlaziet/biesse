@@ -208,26 +208,26 @@ const requestsObject = {
     },
     "media": "capture.png"
   },
-  '3': {
-    "request_id": "7",
-    "request_1c_id": "", 
-    "created": "2024-07-10 08:00:25.313682+00:00",
-    "accepted": "2024-07-10 10:00:25.313682+00:00",
-    "name": "Темки",
-    "request_status": "Not sent",
-    "model": "ROYALTY 123",
-    "fio": "Парнов Олег Витальевич",
-    "number": "+7 111 222 33 33",
-    "city": "Магнитогорск",
-    "adress": "Пушкина, 21",
-    "serial_num": "434123121321",
-    "state": "Ограниченная",
-    "comments": {
-      "date": "01.01.2001, 01:01",
-      "description": "Lorem ipsum dolor sit amet consectetur. Phasellus diam eget sem orci. Vulputate elit augue lacus suspendisse pharetra pharetra."
-    },
-    "media": "capture.png"
-  }
+  // '3': {
+  //   "request_id": "7",
+  //   "request_1c_id": "", 
+  //   "created": "2024-07-10 08:00:25.313682+00:00",
+  //   "accepted": "2024-07-10 10:00:25.313682+00:00",
+  //   "name": "Темки",
+  //   "request_status": "Not sent",
+  //   "model": "ROYALTY 123",
+  //   "fio": "Парнов Олег Витальевич",
+  //   "number": "+7 111 222 33 33",
+  //   "city": "Магнитогорск",
+  //   "adress": "Пушкина, 21",
+  //   "serial_num": "434123121321",
+  //   "state": "Ограниченная",
+  //   "comments": {
+  //     "date": "01.01.2001, 01:01",
+  //     "description": "Lorem ipsum dolor sit amet consectetur. Phasellus diam eget sem orci. Vulputate elit augue lacus suspendisse pharetra pharetra."
+  //   },
+  //   "media": "capture.png"
+  // }
 }
 
 function formatDate(date) {
