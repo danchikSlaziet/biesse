@@ -384,7 +384,26 @@ snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('bl
     snackbarRate.style.top = '0px';
   }
 });
-
+document.querySelector('.edit-request__input').addEventListener('focus', () => {
+  if (detect.os() === 'iOS') {
+    editRequestPage.style.top = '-220px';
+  }
+});
+document.querySelector('.edit-request__input').addEventListener('blur', () => {
+  if (detect.os() === 'iOS') {
+    editRequestPage.style.top = '0';
+  }
+});
+document.querySelector('.new-request__input').addEventListener('focus', () => {
+  if (detect.os() === 'iOS') {
+    newRequestPage.style.top = '-220px';
+  }
+});
+document.querySelector('.new-request__input').addEventListener('blur', () => {
+  if (detect.os() === 'iOS') {
+    newRequestPage.style.top = '0';
+  }
+});
 
 
 document.querySelector('.snackbar-comment__button').addEventListener("click", (evt) => {
