@@ -1,4 +1,34 @@
-// (function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
+(function () { var script = document.createElement('script'); script.src="https://cdn.jsdelivr.net/npm/eruda"; document.body.append(script); script.onload = function () { eruda.init(); } })();
+// отмена закрытия по свайпу (если скролла нет, то работает отлично, когда скролл есть - закрывается при проведении буквой Г, например слева направо и вниз)
+// const overflow = 100;
+// document.body.style.overflowY = 'hidden';
+// document.body.style.marginTop = `${overflow}px`;
+// document.body.style.height = window.innerHeight + overflow + "px";
+// document.body.style.paddingBottom = `${overflow}px`;
+// window.scrollTo(0, overflow);
+// отмена закрытия по свайпу
+let scrollLocked = false;
+
+
+function lockScroll() {
+  if (!scrollLocked) {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+    window.onscroll = function() {
+      window.scrollTo(scrollLeft, scrollTop);
+    };
+
+    scrollLocked = true;
+  }
+}
+
+function unlockScroll() {
+  if (scrollLocked) {
+    window.onscroll = null;
+    scrollLocked = false;
+  }
+}
 
 class Api {
   constructor({baseUrl}) {
@@ -280,6 +310,7 @@ requestsArray.forEach((elem) => {
   requestElement.querySelector('.request__item-only-model').textContent = elem.model;
   requestElement.querySelector('.request__item-button_view').addEventListener("click", (e) => {
     fileCount = 0;
+    console.log('клик на кнопочку посмотреть')
     oldRequestPage.classList.remove('old-request_disable');
     scrollToTop(oldRequestPage);
     oldRequestPage.dataset.reqId = elem.request_id;
@@ -305,42 +336,44 @@ requestsArray.forEach((elem) => {
     oldRequestPage.querySelector('.old-request__block_comments .old-request__value').textContent = elem.comments.description;
     oldRequestPage.querySelector('.old-request__block_media .old-request__media-block').textContent = elem.media;
 
-    oldRequestCommentBtn.addEventListener('click', () => {
-        snackbarComment.classList.add('snackbar-comment_active');
-        console.log('oldRequestCommentBtn.addEventListener');
-    });
+    // oldRequestCommentBtn.addEventListener('click', () => {
+    //     snackbarComment.classList.add('snackbar-comment_active');
+    //     console.log('oldRequestCommentBtn.addEventListener');
+    //     console.log('клик на кнопочку коммент')
+    // });
     
-    document.querySelector('.old-request__copy-button').addEventListener('click', () => {
-      oldRequestPage.classList.add('old-request_disable');
-      newRequestPage.classList.remove('new-request_disable');
-      scrollToTop(newRequestPage)
-      newRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
-      // копирование данных
-      newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value = elem.fio;
-      newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value = elem.number.trim();
-      newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value = elem.name;
-      newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value = elem.city;
-      newRequestPage.querySelector('.new-request__input-block_adress .new-request__input').value = elem.adress;
-      newRequestPage.querySelector('.new-request__input-block_model .new-request__input').value = elem.model;
-      newRequestPage.querySelector('.new-request__input-block_serial-num .new-request__input').value = elem.serial_num;
-      newRequestPage.querySelector('.new-request__input-block_comments .new-request__input').value = elem.comments.description;
-      if ((newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value.trim() == ''))
-        {
-          sendFormButton.classList.remove('new-request__send-button_active');
-        }
-        else {
-          sendFormButton.classList.add('new-request__send-button_active');
-        }
-      const cstSel =  document.querySelector('.new-request .customSelect').customSelect;
-      if (elem.state == 'Рабочая') {
-        cstSel.value = 1;
-      }
-      else if (elem.state == 'Ограниченная') {
-        cstSel.value = 2;
-      } else if (elem.state == 'Не рабочая') {
-        cstSel.value = 3;
-      }
-    });
+    // document.querySelector('.old-request__copy-button').addEventListener('click', () => {
+    //   console.log('клик на кнопочку скопировать')
+    //   oldRequestPage.classList.add('old-request_disable');
+    //   newRequestPage.classList.remove('new-request_disable');
+    //   scrollToTop(newRequestPage)
+    //   newRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
+    //   // копирование данных
+    //   newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value = elem.fio;
+    //   newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value = elem.number.trim();
+    //   newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value = elem.name;
+    //   newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value = elem.city;
+    //   newRequestPage.querySelector('.new-request__input-block_adress .new-request__input').value = elem.adress;
+    //   newRequestPage.querySelector('.new-request__input-block_model .new-request__input').value = elem.model;
+    //   newRequestPage.querySelector('.new-request__input-block_serial-num .new-request__input').value = elem.serial_num;
+    //   newRequestPage.querySelector('.new-request__input-block_comments .new-request__input').value = elem.comments.description;
+    //   if ((newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value.trim() == ''))
+    //     {
+    //       sendFormButton.classList.remove('new-request__send-button_active');
+    //     }
+    //     else {
+    //       sendFormButton.classList.add('new-request__send-button_active');
+    //     }
+    //   const cstSel =  document.querySelector('.new-request .customSelect').customSelect;
+    //   if (elem.state == 'Рабочая') {
+    //     cstSel.value = 1;
+    //   }
+    //   else if (elem.state == 'Ограниченная') {
+    //     cstSel.value = 2;
+    //   } else if (elem.state == 'Не рабочая') {
+    //     cstSel.value = 3;
+    //   }
+    // });
   });
   requestItems.appendChild(requestElement);
 });
@@ -363,9 +396,13 @@ snackbarComment.querySelector('.snackbar-comment__input').addEventListener('inpu
   }
 });
 let detect = new MobileDetect(window.navigator.userAgent);
+if (detect.os() == 'iOS') {
+  lockScroll();
+}
 snackbarComment.querySelector('.snackbar-comment__input').addEventListener('focus', () => {
   if (detect.os() === 'iOS') {
-    snackbarComment.style.top = '-220px';
+    snackbarComment.style.top = '-300px';
+    snackbarComment.style.overflow = 'hidden';
   }
 });
 
@@ -376,7 +413,7 @@ snackbarComment.querySelector('.snackbar-comment__input').addEventListener('blur
 });
 snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('focus', () => {
   if (detect.os() === 'iOS') {
-    snackbarRate.style.top = '-220px';
+    snackbarRate.style.top = '-300px';
   }
 });
 snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('blur', () => {
@@ -384,22 +421,22 @@ snackbarRateTextarea.querySelector('.snackbar-rate__input').addEventListener('bl
     snackbarRate.style.top = '0px';
   }
 });
-document.querySelector('.edit-request__input').addEventListener('focus', () => {
+document.querySelector('.edit-request__input-block_comments .edit-request__input').addEventListener('focus', () => {
   if (detect.os() === 'iOS') {
-    editRequestPage.style.top = '-220px';
+    editRequestPage.style.top = '-300px';
   }
 });
-document.querySelector('.edit-request__input').addEventListener('blur', () => {
+document.querySelector('.edit-request__input-block_comments .edit-request__input').addEventListener('blur', () => {
   if (detect.os() === 'iOS') {
     editRequestPage.style.top = '0';
   }
 });
-document.querySelector('.new-request__input').addEventListener('focus', () => {
+document.querySelector('.new-request__input-block_comments .new-request__input').addEventListener('focus', () => {
   if (detect.os() === 'iOS') {
-    newRequestPage.style.top = '-220px';
+    newRequestPage.style.top = '-300px';
   }
 });
-document.querySelector('.new-request__input').addEventListener('blur', () => {
+document.querySelector('.new-request__input-block_comments .new-request__input').addEventListener('blur', () => {
   if (detect.os() === 'iOS') {
     newRequestPage.style.top = '0';
   }
@@ -408,12 +445,65 @@ document.querySelector('.new-request__input').addEventListener('blur', () => {
 
 document.querySelector('.snackbar-comment__button').addEventListener("click", (evt) => {
   clearSnackbarComment();
-  snackbarComment.classList.remove('snackbar-comment_active')
+  snackbarComment.classList.remove('snackbar-comment_active');
   snackbarCommentSuccess.classList.add("snackbar-comment-success_active");
   setTimeout((() => {
     snackbarCommentSuccess.classList.remove("snackbar-comment-success_active");
   }), 3500)
 });
+
+
+
+
+oldRequestCommentBtn.addEventListener('click', () => {
+  snackbarComment.classList.add('snackbar-comment_active');
+  // lockScroll();
+  console.log('oldRequestCommentBtn.addEventListener');
+  console.log('клик на кнопочку коммент')
+});
+
+document.querySelector('.old-request__copy-button').addEventListener('click', (evt) => {
+  const reqId = evt.target.closest('.old-request').dataset.reqId;
+  const targetRequest = requestsArray.find((item) => item.request_id == reqId);
+  console.log(targetRequest)
+
+  console.log('клик на кнопочку скопировать')
+  oldRequestPage.classList.add('old-request_disable');
+  newRequestPage.classList.remove('new-request_disable');
+  scrollToTop(newRequestPage)
+  newRequestPage.querySelectorAll('.media-input-wrapper').forEach(elem => elem.remove());
+  // копирование данных
+  newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value = targetRequest.fio;
+  newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value = targetRequest.number.trim();
+  newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value = targetRequest.name;
+  newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value = targetRequest.city;
+  newRequestPage.querySelector('.new-request__input-block_adress .new-request__input').value = targetRequest.adress;
+  newRequestPage.querySelector('.new-request__input-block_model .new-request__input').value = targetRequest.model;
+  newRequestPage.querySelector('.new-request__input-block_serial-num .new-request__input').value = targetRequest.serial_num;
+  newRequestPage.querySelector('.new-request__input-block_comments .new-request__input').value = targetRequest.comments.description;
+  if ((newRequestPage.querySelector('.new-request__input-block_fio .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_number .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_name .new-request__input').value.trim() == '') || (newRequestPage.querySelector('.new-request__input-block_city .new-request__input').value.trim() == ''))
+    {
+      sendFormButton.classList.remove('new-request__send-button_active');
+    }
+    else {
+      sendFormButton.classList.add('new-request__send-button_active');
+    }
+  const cstSel =  document.querySelector('.new-request .customSelect').customSelect;
+  if (targetRequest.state == 'Рабочая') {
+    cstSel.value = 1;
+  }
+  else if (targetRequest.state == 'Ограниченная') {
+    cstSel.value = 2;
+  } else if (targetRequest.state == 'Не рабочая') {
+    cstSel.value = 3;
+  }
+});
+
+
+
+
+
+
 document.querySelector('.old-request__edit-button').addEventListener('click', (evt) => {
   fileCountEdit = 0;
   oldRequestPage.classList.add('old-request_disable');
